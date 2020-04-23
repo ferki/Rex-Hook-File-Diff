@@ -1,0 +1,16 @@
+.perlcriticrc
+.perltidyrc
+Changes
+LICENSE
+MANIFEST
+META.json
+Makefile.PL
+README.pod
+cpanfile
+lib/Rex/Hook/File/Diff.pm
+t/diff.t
+t/files.t
+weaver.ini
+xt/author/00-compile.t
+xt/author/critic.t
+xt/author/pod-syntax.t

@@ -1,0 +1,56 @@
+=pod
+
+=encoding UTF-8
+
+=for :stopwords Ferenc Erki CPAN
+
+=head1 NAME
+
+Rex::Hook::File::Diff - show diff of changes for files managed by Rex
+
+=head1 VERSION
+
+version v0.1.0
+
+=head1 SYNOPSIS
+
+    use Rex::Hook::File::Diff;
+
+=head1 DESCRIPTION
+
+This module allows L<Rex> to show a diff of changes for the files managed via its built-in L<file|https://metacpan.org/pod/Rex::Commands::File#file> command.
+
+=head1 DIAGNOSTICS
+
+This module does not do any error checking (yet).
+
+=head1 CONFIGURATION AND ENVIRONMENT
+
+This module does not require any configuration, nor does it use any environment variables.
+
+=head1 DEPENDENCIES
+
+See L<cpanfile>.
+
+=head1 INCOMPATIBILITIES
+
+There are no known incompatibilities with other modules.
+
+=head1 BUGS AND LIMITATIONS
+
+There are no known bugs. Make sure they are reported.
+
+Currently the module supports local file operations only.
+
+=head1 AUTHOR
+
+Ferenc Erki <erkiferenc@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2020 by Ferenc Erki.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
