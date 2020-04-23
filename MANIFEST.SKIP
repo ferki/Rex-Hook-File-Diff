@@ -1,0 +1,7 @@
+^dist.ini
+^MANIFEST.SKIP
+^Rex-Hook-File-Diff.*
+^\.gitignore
+^\.git
+^\.build
+tags

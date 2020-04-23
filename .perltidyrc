@@ -1,0 +1,4 @@
+--no-standard-output
+--no-standard-error-output
+--no-blanks-before-comments
+--variable-maximum-line-length
