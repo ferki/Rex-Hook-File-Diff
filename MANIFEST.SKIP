@@ -4,4 +4,5 @@
 ^\.gitignore
 ^\.git
 ^\.build
+^\.travis.yml
 tags
