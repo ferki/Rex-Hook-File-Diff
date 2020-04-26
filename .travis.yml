@@ -12,6 +12,6 @@ before_install:
 install:
   - dzil listdeps --develop --missing | cpanm
 before_script:
-  - perlcritic lib t
+  - perlcritic lib t xt
 script:
   - dzil test

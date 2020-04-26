@@ -29,5 +29,6 @@ on 'develop' => sub {
   requires "Perl::Critic::Freenode" => "0.032";
   requires "Test::More" => "0";
   requires "Test::Perl::Critic" => "0";
+  requires "Test::PerlTidy" => "0";
   requires "Test::Pod" => "1.41";
 };

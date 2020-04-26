@@ -13,4 +13,5 @@ t/files.t
 weaver.ini
 xt/author/00-compile.t
 xt/author/critic.t
+xt/author/perltidy.t
 xt/author/pod-syntax.t
