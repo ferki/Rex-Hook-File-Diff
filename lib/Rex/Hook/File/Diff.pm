@@ -17,6 +17,11 @@ register_function_hooks { before_change => { file => \&show_diff, }, };
 sub show_diff {
     my ( $original_file, @opts ) = @_;
 
+    if ( !Rex::is_local() ) {
+        Rex::Logger::debug('Skipping File::Diff hook due to remote connection');
+        return;
+    }
+
     my $diff = diff( involved_files($original_file) );
 
     if ( length $diff > 0 ) { print "Diff for: $original_file\n$diff" }
