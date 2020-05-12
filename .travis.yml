@@ -14,4 +14,4 @@ install:
 before_script:
   - perlcritic lib t xt
 script:
-  - dzil test
+  - dzil test --all
