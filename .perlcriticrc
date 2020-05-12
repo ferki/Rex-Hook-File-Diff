@@ -8,3 +8,5 @@ script_sections = USAGE | DESCRIPTION | REQUIRED ARGUMENTS | OPTIONS | DIAGNOSTI
 
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 skip_when_using = Moo::Role
+
+[-TooMuchCode::ProhibitDuplicateLiteral]

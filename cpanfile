@@ -27,6 +27,7 @@ on 'develop' => sub {
   requires "IO::Handle" => "0";
   requires "IPC::Open3" => "0";
   requires "Perl::Critic::Freenode" => "0.032";
+  requires "Perl::Critic::TooMuchCode" => "0.13";
   requires "Test::Kwalitee" => "1.21";
   requires "Test::More" => "0.88";
   requires "Test::Perl::Critic" => "0";
