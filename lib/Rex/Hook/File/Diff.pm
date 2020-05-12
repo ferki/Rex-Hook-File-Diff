@@ -100,7 +100,7 @@ This module does not require any configuration, nor does it use any environment 
 
 =head1 DEPENDENCIES
 
-See L<cpanfile>.
+See the included C<cpanfile>.
 
 =head1 INCOMPATIBILITIES
 
