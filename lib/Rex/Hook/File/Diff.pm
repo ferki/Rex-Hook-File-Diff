@@ -96,4 +96,6 @@ There are no known bugs. Make sure they are reported.
 
 Currently the module supports local file operations only.
 
+Upload hook support is not implemented (yet), so diff is not shown upon file uploads when using the C<source> option with the L<file|https://metacpan.org/pod/Rex::Commands::File#file> command (or the L<upload|https://metacpan.org/pod/Rex::Commands::Upload#upload> command directly).
+
 =cut
