@@ -5,6 +5,7 @@ LICENSE
 MANIFEST
 META.json
 Makefile.PL
+README
 README.pod
 cpanfile
 lib/Rex/Hook/File/Diff.pm
