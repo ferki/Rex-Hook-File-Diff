@@ -72,7 +72,23 @@ __END__
 
 =head1 DESCRIPTION
 
-This module allows L<Rex> to show a diff of changes for the files managed via its built-in L<file|https://metacpan.org/pod/Rex::Commands::File#file> command.
+This module allows L<Rex> to show a diff of changes for the files managed via its built-in L<file manipulation commands|https://metacpan.org/pod/Rex::Commands::File> which rely on the L<file|https://metacpan.org/pod/Rex::Commands::File#file> command as a backend:
+
+=over 4
+
+=item L<file|https://metacpan.org/pod/Rex::Commands::File#file>
+
+=item L<delete_lines_matching|https://metacpan.org/pod/Rex::Commands::File#delete_lines_matching>
+
+=item L<delete_lines_according_to|https://metacpan.org/pod/Rex::Commands::File#delete_lines_according_to>
+
+=item L<append_if_no_such_line|https://metacpan.org/pod/Rex::Commands::File#append_if_no_such_line>
+
+=item L<append_or_amend_line|https://metacpan.org/pod/Rex::Commands::File#append_or_amend_line>
+
+=item L<sed|https://metacpan.org/pod/Rex::Commands::File#sed>
+
+=back
 
 =head1 DIAGNOSTICS
 
