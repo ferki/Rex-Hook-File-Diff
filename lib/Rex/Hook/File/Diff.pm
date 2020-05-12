@@ -35,8 +35,8 @@ sub involved_files {
     my $temp_file = get_rex_temp_file_path($file);
     my $null      = File::Spec->devnull();
 
-    if ( !is_file($file) )      { $file      = $null }    # creating file
-    if ( !is_file($temp_file) ) { $temp_file = $null }    # removing file
+    if ( !is_file($file) )      { $file      = $null } # creating file
+    if ( !is_file($temp_file) ) { $temp_file = $null } # removing file
 
     return ( $file, $temp_file );
 }
