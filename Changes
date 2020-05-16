@@ -1,12 +1,13 @@
 Revision history for Rex-Hook-File-Diff
- 
+
 {{$NEXT}}
- - Initial release
-
  [API CHANGES]
-
- [ENHANCEMENTS]
 
  [BUG FIXES]
 
  [DOCUMENTATION]
+
+ [ENHANCEMENTS]
+
+v0.0.0.1 2020-05-16T16:26:26Z (TRIAL RELEASE)
+ - Initial release
