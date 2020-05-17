@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.012;
+use 5.014;
 
 use ExtUtils::MakeMaker;
 
@@ -14,7 +14,7 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "Rex-Hook-File-Diff",
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.012",
+  "MIN_PERL_VERSION" => "5.014",
   "NAME" => "Rex::Hook::File::Diff",
   "PREREQ_PM" => {
     "Rex" => "0.044",
@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     "Test::Output" => "0.03",
     "re" => 0
   },
-  "VERSION" => "v0.0.0.1",
+  "VERSION" => "v0.0.0.2",
   "test" => {
     "TESTS" => "t/*.t"
   }

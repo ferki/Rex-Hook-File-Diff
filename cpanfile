@@ -4,7 +4,7 @@
 requires "Rex" => "0.044";
 requires "Rex::Hook" => "0";
 requires "Text::Diff" => "1.44";
-requires "perl" => "5.012";
+requires "perl" => "5.014";
 requires "strict" => "0";
 requires "warnings" => "0";
 
@@ -15,6 +15,7 @@ on 'test' => sub {
   requires "Rex::Commands::File" => "0";
   requires "Test2::V0" => "0.000071";
   requires "Test::Output" => "0.03";
+  requires "perl" => "5.014";
   requires "re" => "0";
 };
 
