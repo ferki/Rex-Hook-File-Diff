@@ -24,7 +24,7 @@ subtest 'create new file' => sub {
     my @involved_files = Rex::Hook::File::Diff::involved_files($file);
     my @expected_files = ( $null, $rex_temp_file );
 
-    is( \@involved_files, \@expected_files );
+    is( \@involved_files, \@expected_files, 'filenames match for file creation' );
 
     unlink $file, $rex_temp_file;
 };
@@ -38,7 +38,8 @@ subtest 'modify existing file' => sub {
     my @involved_files = Rex::Hook::File::Diff::involved_files($file);
     my @expected_files = ( $file, $rex_temp_file );
 
-    is( \@involved_files, \@expected_files );
+    is( \@involved_files, \@expected_files,
+        'filenames match for file modification' );
 
     unlink $file, $rex_temp_file;
 };
@@ -51,7 +52,7 @@ subtest 'delete file' => sub {
     my @involved_files = Rex::Hook::File::Diff::involved_files($file);
     my @expected_files = ( $file, $null );
 
-    is( \@involved_files, \@expected_files );
+    is( \@involved_files, \@expected_files, 'filenames match for file deletion' );
 
     unlink $file, $rex_temp_file;
 };
