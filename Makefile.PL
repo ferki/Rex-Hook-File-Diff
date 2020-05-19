@@ -29,10 +29,11 @@ my %WriteMakefileArgs = (
     "File::Touch" => "0.08",
     "Rex::Commands::File" => 0,
     "Test2::V0" => "0.000071",
+    "Test::File" => "1.443",
     "Test::Output" => "0.03",
     "re" => 0
   },
-  "VERSION" => "v0.0.0.2",
+  "VERSION" => "v0.0.0.3",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -47,6 +48,7 @@ my %FallbackPrereqs = (
   "Rex::Commands::File" => 0,
   "Rex::Hook" => 0,
   "Test2::V0" => "0.000071",
+  "Test::File" => "1.443",
   "Test::Output" => "0.03",
   "Text::Diff" => "1.44",
   "re" => 0,

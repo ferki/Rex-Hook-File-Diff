@@ -14,6 +14,7 @@ on 'test' => sub {
   requires "File::Touch" => "0.08";
   requires "Rex::Commands::File" => "0";
   requires "Test2::V0" => "0.000071";
+  requires "Test::File" => "1.443";
   requires "Test::Output" => "0.03";
   requires "perl" => "5.014";
   requires "re" => "0";
