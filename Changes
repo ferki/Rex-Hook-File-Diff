@@ -9,6 +9,9 @@ Revision history for Rex-Hook-File-Diff
 
  [ENHANCEMENTS]
 
+v0.1.0 2020-05-26T17:42:17Z
+ - No code changes since v0.0.0.3 trial release
+
 v0.0.0.3 2020-05-19T20:23:50Z (TRIAL RELEASE)
  [ENHANCEMENTS]
  - Add missing test names
