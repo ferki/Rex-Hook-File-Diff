@@ -37,7 +37,9 @@ sub show_diff {
         return;
     }
 
-    if ( length $diff > 0 ) { print "Diff for: $original_file\n$diff" }
+    if ( length $diff > 0 ) {
+        Rex::Commands::say("Diff for: $original_file\n$diff");
+    }
 
     return;
 }
