@@ -8,6 +8,9 @@ Revision history for Rex-Hook-File-Diff
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+
+v0.1.0.1 2020-06-01T07:36:34Z (TRIAL RELEASE)
+ [ENHANCEMENTS]
  - Use the diff utility if available
  - Use say instead of print
 
