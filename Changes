@@ -4,11 +4,14 @@ Revision history for Rex-Hook-File-Diff
  [API CHANGES]
 
  [BUG FIXES]
- - Mark header timestamps optional
 
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+
+v0.1.0.2 2020-06-02T13:00:05Z (TRIAL RELEASE)
+ [BUG FIXES]
+ - Mark header timestamps optional
 
 v0.1.0.1 2020-06-01T07:36:34Z (TRIAL RELEASE)
  [ENHANCEMENTS]
