@@ -4,6 +4,7 @@ Revision history for Rex-Hook-File-Diff
  [API CHANGES]
 
  [BUG FIXES]
+ - Mark header timestamps optional
 
  [DOCUMENTATION]
 
