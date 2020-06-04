@@ -9,6 +9,7 @@ Revision history for Rex-Hook-File-Diff
 
  [ENHANCEMENTS]
  - Use built-in Rex logic to get temp file names
+ - Test on Windows with Travis CI
 
 v0.2.0 2020-06-03T09:10:16Z
  - No code changes since v0.1.0.2 trial release

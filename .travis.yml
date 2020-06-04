@@ -20,3 +20,24 @@ jobs:
         - perlcritic lib t xt
       script:
         - dzil test --all
+    - stage: test
+      os: windows
+      language: shell
+      git:
+        autocrlf: input
+      cache:
+        directories:
+          - /c/Strawberry
+      before_install:
+        - test -d /c/Strawberry/perl || cinst -y strawberryperl
+        - export "PATH=/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH"
+        - export "PERL5LIB=/c/Strawberry/perl/site/lib:/c/Strawberry/perl/vendor/lib:/c/Strawberry/perl/lib"
+        - ln -snf /c/Strawberry/perl/bin/perl /bin/perl
+        - cpanm Dist::Zilla
+        - dzil authordeps --missing | cpanm
+      install:
+        - dzil listdeps --develop --missing | cpanm
+      before_script:
+        - perlcritic lib t xt
+      script:
+        - dzil test --all
