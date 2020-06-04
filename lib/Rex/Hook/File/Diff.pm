@@ -8,6 +8,7 @@ use warnings;
 
 our $VERSION = '9999';
 
+use English qw( -no_match_vars );
 use Rex 1.012 -base;
 use Rex::Helper::Run;
 use Rex::Hook;
@@ -18,8 +19,11 @@ register_function_hooks { before_change => { file => \&show_diff, }, };
 sub show_diff {
     my ( $original_file, @opts ) = @_;
 
-    my $diff;
-    my $diff_command = can_run('diff');
+    my ( $diff, $diff_command );
+
+    if ( $OSNAME ne 'MSWin32' ) {
+        $diff_command = can_run('diff');
+    }
 
     if ($diff_command) {
         my $command = join q( ), $diff_command, '-u', involved_files($original_file);
@@ -84,7 +88,7 @@ This module allows L<Rex> to show a diff of changes for the files managed via it
 
 =item L<sed|https://metacpan.org/pod/Rex::Commands::File#sed>
 
-It uses the C<diff> utility if available.
+On non-Windows systems, it uses the C<diff> utility if available.
 
 =back
 
