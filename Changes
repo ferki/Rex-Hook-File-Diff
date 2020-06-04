@@ -8,6 +8,7 @@ Revision history for Rex-Hook-File-Diff
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+ - Test on Mac OS X with Travis CI
 
 v0.3.0 2020-08-28T19:04:55Z
  - No code changes since v0.2.0.1 trial release

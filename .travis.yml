@@ -41,3 +41,26 @@ jobs:
         - perlcritic lib t xt
       script:
         - dzil test --all
+    - stage: test
+      os: osx
+      osx_image: xcode11.5
+      language: shell
+      cache:
+        directories:
+          - /usr/local/Cellar/perl
+      addons:
+        homebrew:
+          packages:
+            - perl
+            - cpanminus
+      before_install:
+        - export PERL_VERSION="$(brew list --versions perl | cut -d' ' -f 2)"
+        - export "PATH=/usr/local/Cellar/perl/${PERL_VERSION}/bin:${PATH}"
+        - cpanm Dist::Zilla
+        - dzil authordeps --missing | cpanm
+      install:
+        - dzil listdeps --develop --missing | cpanm
+      before_script:
+        - perlcritic lib t xt
+      script:
+        - dzil test --all
