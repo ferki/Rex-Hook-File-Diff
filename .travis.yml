@@ -5,15 +5,18 @@ perl:
   - "5.30"
 env:
   - PERL_CPANM_OPT="--quiet --notest"
-cache:
-  directories:
-    - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/lib
-    - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/bin
-before_install:
-  - dzil authordeps --missing | cpanm
-install:
-  - dzil listdeps --develop --missing | cpanm
-before_script:
-  - perlcritic lib t xt
-script:
-  - dzil test --all
+jobs:
+  include:
+    - stage: test
+      cache:
+        directories:
+          - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/lib
+          - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/bin
+      before_install:
+        - dzil authordeps --missing | cpanm
+      install:
+        - dzil listdeps --develop --missing | cpanm
+      before_script:
+        - perlcritic lib t xt
+      script:
+        - dzil test --all
