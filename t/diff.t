@@ -28,9 +28,9 @@ subtest 'quick file lifecycle' => sub {
             coderef         => sub { file $file, content => '1' },
             expected_output => qr{
               \A                                    # start of output
-              \QDiff for: \E$file\n                 # leading message
-              \Q--- \E/dev/null(\s+.*?)?\n          # header for original file
-              \Q+++ \E$rex_tmp_filename(\s+.*?)?\n  # header for new file
+              \QDiff for: $file\E\n                 # leading message
+              \Q--- /dev/null\E(\s+.*?)?\n          # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
               \Q@@ -0,0 +1 @@\E\n                   # hunk
               \Q+1\E\n                              # added line
               \Z                                    # end of output
@@ -41,9 +41,9 @@ subtest 'quick file lifecycle' => sub {
             coderef         => sub { file $file, ensure => 'absent' },
             expected_output => qr{
               \A                            # start of output
-              \QDiff for: \E$file\n         # leading message
-              \Q--- \E$file(\s+.*?)?\n      # header for original file
-              \Q+++ \E/dev/null(\s+.*?)?\n  # header for new file
+              \QDiff for: $file\E\n         # leading message
+              \Q--- $file\E(\s+.*?)?\n      # header for original file
+              \Q+++ /dev/null\E(\s+.*?)?\n  # header for new file
               \Q@@ -1 +0,0 @@\E\n           # hunk
               \Q-1\E\n                      # added line
               \Z                            # end of output
@@ -69,9 +69,9 @@ subtest 'full file lifecycle' => sub {
             coderef         => sub { file $file, content => '1' },
             expected_output => qr{
               \A                                    # start of output
-              \QDiff for: \E$file\n                 # leading message
-              \Q--- \E$file(\s+.*?)?\n              # header for original file
-              \Q+++ \E$rex_tmp_filename(\s+.*?)?\n  # header for new file
+              \QDiff for: $file\E\n                 # leading message
+              \Q--- $file\E(\s+.*?)?\n              # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
               \Q@@ -0,0 +1 @@\E\n                   # hunk
               \Q+1\E\n                              # added line
               \Z                                    # end of output
@@ -82,9 +82,9 @@ subtest 'full file lifecycle' => sub {
             coderef         => sub { file $file, content => '2' },
             expected_output => qr{
               \A                                    # start of output
-              \QDiff for: \E$file\n                 # leading message
-              \Q--- \E$file(\s+.*?)?\n              # header for original file
-              \Q+++ \E$rex_tmp_filename(\s+.*?)?\n  # header for new file
+              \QDiff for: $file\E\n                 # leading message
+              \Q--- $file\E(\s+.*?)?\n              # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
               \Q@@ -1 +1 @@\E\n                     # hunk
               \Q-1\E\n                              # removed line
               \Q+2\E\n                              # added line
@@ -96,9 +96,9 @@ subtest 'full file lifecycle' => sub {
             coderef         => sub { file $file, content => q() },
             expected_output => qr{
               \A                                    # start of output
-              \QDiff for: \E$file\n                 # leading message
-              \Q--- \E$file(\s+.*?)?\n              # header for original file
-              \Q+++ \E$rex_tmp_filename(\s+.*?)?\n  # header for new file
+              \QDiff for: $file\E\n                 # leading message
+              \Q--- $file\E(\s+.*?)?\n              # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
               \Q@@ -1 +0,0 @@\E\n                   # hunk
               \Q-2\E\n                              # removed line
               \Z                                    # end of output
