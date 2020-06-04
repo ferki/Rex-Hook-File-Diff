@@ -16,6 +16,8 @@ use Test::Output 0.03;
 
 plan tests => 2;
 
+my $null = File::Spec->devnull();
+
 ## no critic ( ProhibitComplexRegexes )
 
 subtest 'quick file lifecycle' => sub {
@@ -29,7 +31,7 @@ subtest 'quick file lifecycle' => sub {
             expected_output => qr{
               \A                                    # start of output
               \QDiff for: $file\E\n                 # leading message
-              \Q--- /dev/null\E(\s+.*?)?\n          # header for original file
+              \Q--- $null\E(\s+.*?)?\n              # header for original file
               \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
               \Q@@ -0,0 +1 @@\E\n                   # hunk
               \Q+1\E\n                              # added line
@@ -43,7 +45,7 @@ subtest 'quick file lifecycle' => sub {
               \A                            # start of output
               \QDiff for: $file\E\n         # leading message
               \Q--- $file\E(\s+.*?)?\n      # header for original file
-              \Q+++ /dev/null\E(\s+.*?)?\n  # header for new file
+              \Q+++ $null\E(\s+.*?)?\n      # header for new file
               \Q@@ -1 +0,0 @@\E\n           # hunk
               \Q-1\E\n                      # added line
               \Z                            # end of output
