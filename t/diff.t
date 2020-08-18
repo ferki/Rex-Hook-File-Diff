@@ -9,7 +9,7 @@ our $VERSION = '9999';
 
 use File::Basename;
 use File::Temp;
-use Rex::Commands::File;
+use Rex::Commands::File 1.012;
 use Rex::Hook::File::Diff;
 use Test2::V0 0.000071;
 use Test::Output 0.03;
@@ -20,7 +20,7 @@ plan tests => 2;
 
 subtest 'quick file lifecycle' => sub {
     my $file             = File::Temp->new()->filename();
-    my $rex_tmp_filename = Rex::Hook::File::Diff::get_rex_temp_file_path($file);
+    my $rex_tmp_filename = Rex::Commands::File::get_tmp_file_name($file);
 
     my @tests = (
         {
@@ -56,7 +56,7 @@ subtest 'quick file lifecycle' => sub {
 
 subtest 'full file lifecycle' => sub {
     my $file             = File::Temp->new()->filename();
-    my $rex_tmp_filename = Rex::Hook::File::Diff::get_rex_temp_file_path($file);
+    my $rex_tmp_filename = Rex::Commands::File::get_tmp_file_name($file);
 
     my @tests = (
         {

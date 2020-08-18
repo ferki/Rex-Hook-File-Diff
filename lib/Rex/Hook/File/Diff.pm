@@ -8,7 +8,7 @@ use warnings;
 
 our $VERSION = '9999';
 
-use Rex 0.044 -base;
+use Rex 1.012 -base;
 use Rex::Helper::Run;
 use Rex::Hook;
 use Text::Diff 1.44;
@@ -47,32 +47,13 @@ sub show_diff {
 sub involved_files {
     my $file = shift;
 
-    my $temp_file = get_rex_temp_file_path($file);
+    my $temp_file = Rex::Commands::File::get_tmp_file_name($file);
     my $null      = File::Spec->devnull();
 
     if ( !is_file($file) )      { $file      = $null } # creating file
     if ( !is_file($temp_file) ) { $temp_file = $null } # removing file
 
     return ( $file, $temp_file );
-}
-
-sub get_rex_temp_file_path {
-    my $file = shift;
-
-    ## no critic ( CodeLayout RegularExpressions ValuesAndExpressions )
-    # copied verbatim from Rex::Commands::File
-
-    my @splitted_file = split( /[\/\\]/, $file );
-    my $file_name     = ".rex.tmp." . pop(@splitted_file);
-    my $tmp_file_name = (
-        $#splitted_file != -1
-        ? ( join( "/", @splitted_file ) . "/" . $file_name )
-        : $file_name
-    );
-
-    ## use critic
-
-    return $tmp_file_name;
 }
 
 1;
