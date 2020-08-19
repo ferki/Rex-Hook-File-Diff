@@ -10,7 +10,7 @@ Rex::Hook::File::Diff - show diff of changes for files managed by Rex
 
 =head1 VERSION
 
-version v0.2.0
+version v0.2.0.1
 
 =head1 SYNOPSIS
 
@@ -34,7 +34,7 @@ This module allows L<Rex> to show a diff of changes for the files managed via it
 
 =item L<sed|https://metacpan.org/pod/Rex::Commands::File#sed>
 
-It uses the C<diff> utility if available.
+On non-Windows systems, it uses the C<diff> utility if available.
 
 =back
 

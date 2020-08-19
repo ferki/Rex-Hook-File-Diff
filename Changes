@@ -8,6 +8,12 @@ Revision history for Rex-Hook-File-Diff
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+
+v0.2.0.1 2020-08-19T17:01:12Z (TRIAL RELEASE)
+ [BUG FIXES]
+ - Fix tests on Windows
+
+ [ENHANCEMENTS]
  - Use built-in Rex logic to get temp file names
  - Test on Windows with Travis CI
 
