@@ -88,9 +88,9 @@ This module allows L<Rex> to show a diff of changes for the files managed via it
 
 =item L<sed|https://metacpan.org/pod/Rex::Commands::File#sed>
 
-On non-Windows systems, it uses the C<diff> utility if available.
-
 =back
+
+On non-Windows systems, it uses the C<diff> utility if available.
 
 =head1 DIAGNOSTICS
 
