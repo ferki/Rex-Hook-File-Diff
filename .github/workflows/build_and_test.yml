@@ -1,0 +1,117 @@
+name: build and test
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+
+env:
+  PERL_CPANM_OPT: "--quiet --notest"
+  AUTHOR_TESTING: 1
+  EXTENDED_TESTING: 1
+  RELEASE_TESTING: 1
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: perldocker/perl-tester:latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Log perl version
+        run: perl -V
+      - name: Install Dist::Zilla
+        run: cpanm Dist::Zilla
+      - name: Install author dependencies
+        run: dzil authordeps | cpanm
+      - name: Install dependencies
+        run: dzil listdeps --develop | cpanm
+      - name: Run perlcritic
+        run: perlcritic lib t xt
+      - name: Build dist
+        run: dzil build --no-tgz --in build
+      - name: Install Devel::Cover::Report::Coveralls
+        run: cpanm Devel::Cover::Report::Coveralls
+      - name: Run tests
+        run: |
+          cd build
+          prove --timer --lib --recurse --jobs $(nproc) --shuffle xt
+          HARNESS_PERL_SWITCHES=-MDevel::Cover=+ignore,^t/ prove --timer --lib --recurse --jobs $(nproc) --shuffle t/
+      - name: Report coverage info to Coveralls
+        run: |
+          cd build
+          cover -report coveralls
+          rm -rf cover_db
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload build results
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_results
+          path: build
+
+  linux:
+    needs: build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        perl-version:
+          - '5.14'
+          - 'latest'
+
+    container:
+      image: perldocker/perl-tester:${{ matrix.perl-version }}
+
+    steps:
+      - name: Download build results
+        uses: actions/download-artifact@v2
+        with:
+          name: build_results
+      - name: Log perl version
+        run: perl -V
+      - name: Install dependencies
+        run: cpanm --installdeps .
+      - name: Run tests
+        run: prove --timer --lib --recurse --jobs $(nproc) --shuffle t
+
+  macos:
+    needs: build
+    runs-on: macOS-latest
+
+    steps:
+      - name: Download build results
+        uses: actions/download-artifact@v2
+        with:
+          name: build_results
+      - name: Set up cpanm
+        run: brew install cpanm
+      - name: Log perl version
+        run: perl -V
+      - name: Install dependencies
+        run: cpanm --installdeps .
+      - name: Run tests
+        run: prove --timer --lib --recurse --jobs $(sysctl -n hw.ncpu) --shuffle t
+
+  windows:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - name: Download build results
+        uses: actions/download-artifact@v2
+        with:
+          name: build_results
+      - name: Log perl version
+        run: perl -V
+      - name: Install dependencies
+        run: cpanm --installdeps .
+      - name: Run tests
+        run: prove --timer --lib --recurse --jobs $(nproc) --shuffle t
