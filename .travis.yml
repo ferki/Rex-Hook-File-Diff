@@ -13,9 +13,9 @@ jobs:
           - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/lib
           - ${PERLBREW_ROOT}/perls/${PERLBREW_PERL}/bin
       before_install:
-        - dzil authordeps --missing | cpanm
+        - dzil authordeps | cpanm
       install:
-        - dzil listdeps --develop --missing | cpanm
+        - dzil listdeps --develop | cpanm
       before_script:
         - perlcritic lib t xt
       script:
@@ -34,9 +34,9 @@ jobs:
         - export "PERL5LIB=/c/Strawberry/perl/site/lib:/c/Strawberry/perl/vendor/lib:/c/Strawberry/perl/lib"
         - ln -snf /c/Strawberry/perl/bin/perl /bin/perl
         - cpanm Dist::Zilla
-        - dzil authordeps --missing | cpanm
+        - dzil authordeps | cpanm
       install:
-        - dzil listdeps --develop --missing | cpanm
+        - dzil listdeps --develop | cpanm
       before_script:
         - perlcritic lib t xt
       script:
@@ -57,9 +57,9 @@ jobs:
         - export PERL_VERSION="$(brew list --versions perl | cut -d' ' -f 2)"
         - export "PATH=/usr/local/Cellar/perl/${PERL_VERSION}/bin:${PATH}"
         - cpanm Dist::Zilla
-        - dzil authordeps --missing | cpanm
+        - dzil authordeps | cpanm
       install:
-        - dzil listdeps --develop --missing | cpanm
+        - dzil listdeps --develop | cpanm
       before_script:
         - perlcritic lib t xt
       script:
