@@ -2,7 +2,7 @@
 
 =encoding UTF-8
 
-=for :stopwords Ferenc Erki CPAN
+=for :stopwords Ferenc Erki backend CPAN sed
 
 =head1 NAME
 

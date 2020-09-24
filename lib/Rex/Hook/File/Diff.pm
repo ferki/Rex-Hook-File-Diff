@@ -64,7 +64,7 @@ sub involved_files {
 
 __END__
 
-=for :stopwords CPAN
+=for :stopwords backend CPAN sed
 
 =head1 SYNOPSIS
 
