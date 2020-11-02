@@ -4,7 +4,7 @@ language: perl
 perl:
   - "5.30"
 env:
-  - PERL_CPANM_OPT="--quiet --notest"
+  - AUTHOR_TESTING=1 RELEASE_TESTING=1 PERL_CPANM_OPT="--quiet --notest"
 jobs:
   include:
     - stage: test
@@ -18,8 +18,10 @@ jobs:
         - dzil listdeps --develop | cpanm
       before_script:
         - perlcritic lib t xt
+        - dzil build --in build --notgz
       script:
-        - dzil test --all
+        - cd build
+        - prove --timer --lib --recurse --jobs $(nproc) --shuffle t/ xt/
     - stage: test
       os: windows
       language: shell
