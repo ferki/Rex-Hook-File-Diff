@@ -6,6 +6,7 @@ use warnings;
 
 our $VERSION = '9999';
 
+use English qw( -no_match_vars );
 use File::Basename;
 use File::Touch 0.08;
 use File::Temp;
@@ -77,7 +78,7 @@ subtest 'delete file' => sub {
 };
 
 sub get_test_files {
-    my $file = File::Temp->new()->filename();
+    my $file = File::Temp->new( TEMPLATE => "$PROGRAM_NAME.XXXX" )->filename();
     my $rex_temp_file =
       File::Spec->catfile( dirname($file), '.rex.tmp.' . basename($file) );
 
