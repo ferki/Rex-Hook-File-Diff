@@ -10,3 +10,9 @@ script_sections = USAGE | DESCRIPTION | REQUIRED ARGUMENTS | OPTIONS | DIAGNOSTI
 skip_when_using = Moo::Role
 
 [-TooMuchCode::ProhibitDuplicateLiteral]
+
+[TestingAndDebugging::RequireUseStrict]
+equivalent_modules = Test2::V0
+
+[Freenode::StrictWarnings]
+extra_importers = Test2::V0
