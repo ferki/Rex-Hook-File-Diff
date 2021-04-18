@@ -3,7 +3,6 @@ package Rex::Hook::File::Diff;
 # ABSTRACT: show diff of changes for files managed by Rex
 
 use 5.012;
-use strict;
 use warnings;
 
 use English qw( -no_match_vars );

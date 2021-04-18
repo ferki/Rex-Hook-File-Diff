@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 
 use 5.006;
-use strict;
 use warnings;
 
 use English qw( -no_match_vars );
