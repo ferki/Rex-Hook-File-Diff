@@ -6,13 +6,13 @@ use 5.012;
 use strict;
 use warnings;
 
-our $VERSION = '9999';
-
 use English qw( -no_match_vars );
 use Rex 1.012 -base;
 use Rex::Helper::Run;
 use Rex::Hook;
 use Text::Diff 1.44;
+
+our $VERSION = '9999';
 
 register_function_hooks { before_change => { file => \&show_diff, }, };
 

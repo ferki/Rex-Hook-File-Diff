@@ -5,8 +5,6 @@ use strict;
 use warnings;
 use re '/msx';
 
-our $VERSION = '9999';
-
 use English qw( -no_match_vars );
 use File::Basename;
 use File::Temp;
@@ -14,6 +12,8 @@ use Rex::Commands::File 1.012;
 use Rex::Hook::File::Diff;
 use Test2::V0 0.000071;
 use Test::Output 0.03;
+
+our $VERSION = '9999';
 
 plan tests => 2;
 

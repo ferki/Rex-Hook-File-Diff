@@ -4,8 +4,6 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '9999';
-
 use English qw( -no_match_vars );
 use File::Basename;
 use File::Touch 0.08;
@@ -13,6 +11,8 @@ use File::Temp;
 use Rex::Hook::File::Diff;
 use Test2::V0 0.000071;
 use Test::File 1.443;
+
+our $VERSION = '9999';
 
 plan tests => 3;
 
