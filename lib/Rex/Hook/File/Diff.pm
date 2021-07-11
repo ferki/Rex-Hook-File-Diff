@@ -6,7 +6,7 @@ use 5.012;
 use warnings;
 
 use English qw( -no_match_vars );
-use Rex 1.012 -base;
+use Rex 1.013004 -base;
 use Rex::Helper::Run;
 use Rex::Hook;
 use Text::Diff 1.44;
