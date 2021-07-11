@@ -57,7 +57,7 @@ subtest 'quick file lifecycle' => sub {
 };
 
 subtest 'full file lifecycle' => sub {
-    my $file             = File::Temp->new()->filename();
+    my $file = File::Temp->new( TEMPLATE => "$PROGRAM_NAME.XXXX" )->filename();
     my $rex_tmp_filename = Rex::Commands::File::get_tmp_file_name($file);
 
     my @tests = (
