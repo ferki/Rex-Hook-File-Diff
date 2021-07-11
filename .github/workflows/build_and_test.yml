@@ -70,7 +70,7 @@ jobs:
           - 'latest'
 
     container:
-      image: perldocker/perl-tester:${{ matrix.perl-version }}
+      image: perl:${{ matrix.perl-version }}
 
     steps:
       - name: Download build results
