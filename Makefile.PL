@@ -17,7 +17,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.014",
   "NAME" => "Rex::Hook::File::Diff",
   "PREREQ_PM" => {
-    "English" => 0,
+    "File::Basename" => 0,
     "Rex" => "1.013004",
     "Rex::Helper::Run" => 0,
     "Rex::Hook" => 0,
@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "File::Basename" => 0,
+    "English" => 0,
     "File::Temp" => 0,
     "File::Touch" => "0.08",
     "Rex::Commands::File" => "1.012",

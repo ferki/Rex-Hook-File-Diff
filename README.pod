@@ -36,7 +36,7 @@ This module allows L<Rex> to show a diff of changes for the files managed via it
 
 =back
 
-On non-Windows systems, it uses the C<diff> utility if available.
+It prefers to use the C<diff> utility on non-Windows managed endpoints, if available.
 
 =head1 DIAGNOSTICS
 

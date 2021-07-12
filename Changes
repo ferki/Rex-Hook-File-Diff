@@ -5,6 +5,7 @@ Revision history for Rex-Hook-File-Diff
 
  [BUG FIXES]
  - Fix parallel tests
+ - Detect managed OS instead of running OS
 
  [DOCUMENTATION]
 
