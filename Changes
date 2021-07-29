@@ -4,10 +4,15 @@ Revision history for Rex-Hook-File-Diff
  [API CHANGES]
 
  [BUG FIXES]
- - Fix parallel tests
- - Detect managed OS instead of running OS
 
  [DOCUMENTATION]
+
+ [ENHANCEMENTS]
+
+v0.3.0.1 2021-07-29T16:56:12Z (TRIAL RELEASE)
+ [BUG FIXES]
+ - Fix parallel tests
+ - Detect managed OS instead of running OS
 
  [ENHANCEMENTS]
  - Test on Mac OS X with Travis CI
