@@ -68,7 +68,7 @@ Ferenc Erki <erkiferenc@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2020 by Ferenc Erki.
+This software is copyright (c) 2020,2021 by Ferenc Erki.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
