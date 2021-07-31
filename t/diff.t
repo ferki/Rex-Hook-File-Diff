@@ -125,69 +125,69 @@ subtest 'file command with source option' => sub {
             scenario        => 'create file',
             coderef         => sub { file $file, source => 'files/create_file' },
             expected_output => qr{
-              \A                                # start of output
-              \QDiff for: \E$file\n             # leading message
-              \Q--- $null\E(\s+.*?)?\n          # header for original file
-              \Q+++ $rex_tmp_filename\E\s+.*?\n # header for new file
-              \Q@@ -0,0 +1 @@\E\n               # hunk
-              \Q+1\E\n                          # added line
-              \Z                                # end of output
+              \A                                   # start of output
+              \QDiff for: \E$file\n                # leading message
+              \Q--- $null\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+              \Q@@ -0,0 +1 @@\E\n                  # hunk
+              \Q+1\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'add line',
             coderef         => sub { file $file, source => 'files/add_line' },
             expected_output => qr{
-              \A                                # start of output
-              \QDiff for: \E$file\n             # leading message
-              \Q--- $file\E\s+.*?\n             # header for original file
-              \Q+++ $rex_tmp_filename\E\s+.*?\n # header for new file
-              \Q@@ -1 +1,2 @@\E\n               # hunk
-              \Q 1\E\n                          # unchanged line
-              \Q+2\E\n                          # added line
-              \Z                                # end of output
+              \A                                   # start of output
+              \QDiff for: \E$file\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+              \Q@@ -1 +1,2 @@\E\n                  # hunk
+              \Q 1\E\n                             # unchanged line
+              \Q+2\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'modify line',
             coderef         => sub { file $file, source => 'files/modify_line' },
             expected_output => qr{
-              \A                                # start of output
-              \QDiff for: \E$file\n             # leading message
-              \Q--- $file\E\s+.*?\n             # header for original file
-              \Q+++ $rex_tmp_filename\E\s+.*?\n # header for new file
-              \Q@@ -1,2 +1,2 @@\E\n             # hunk
-              \Q 1\E\n                          # unchanged line
-              \Q-2\E\n                          # removed line
-              \Q+3\E\n                          # added line
-              \Z                                # end of output
+              \A                                   # start of output
+              \QDiff for: \E$file\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+              \Q@@ -1,2 +1,2 @@\E\n                # hunk
+              \Q 1\E\n                             # unchanged line
+              \Q-2\E\n                             # removed line
+              \Q+3\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'remove line',
             coderef         => sub { file $file, source => 'files/remove_line' },
             expected_output => qr{
-              \A                                # start of output
-              \QDiff for: \E$file\n             # leading message
-              \Q--- $file\E\s+.*?\n             # header for original file
-              \Q+++ $rex_tmp_filename\E\s+.*?\n # header for new file
-              \Q@@ -1,2 +1 @@\E\n               # hunk
-              \Q 1\E\n                          # unchanged line
-              \Q-3\E\n                          # removed line
-              \Z                                # end of output
+              \A                                   # start of output
+              \QDiff for: \E$file\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+              \Q@@ -1,2 +1 @@\E\n                  # hunk
+              \Q 1\E\n                             # unchanged line
+              \Q-3\E\n                             # removed line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'remove file',
             coderef         => sub { file $file, ensure => 'absent' },
             expected_output => qr{
-              \A                        # start of output
-              \QDiff for: \E$file\n     # leading message
-              \Q--- $file\E\s+.*?\n     # header for original file
-              \Q+++ $null\E(\s+.*?)?\n  # header for new file
-              \Q@@ -1 +0,0 @@\E\n       # hunk
-              \Q-1\E\n                  # removed line
-              \Z                        # end of output
+              \A                       # start of output
+              \QDiff for: \E$file\n    # leading message
+              \Q--- $file\E(\s+.*?)?\n # header for original file
+              \Q+++ $null\E(\s+.*?)?\n # header for new file
+              \Q@@ -1 +0,0 @@\E\n      # hunk
+              \Q-1\E\n                 # removed line
+              \Z                       # end of output
             },
         },
     );
