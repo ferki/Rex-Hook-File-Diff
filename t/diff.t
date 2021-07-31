@@ -70,7 +70,11 @@ subtest 'full file lifecycle' => sub {
         {
             scenario        => 'create empty file',
             coderef         => sub { file $file, ensure => 'present' },
-            expected_output => qr{\A\Z},
+            expected_output => qr{
+                \A                            # start of output
+                (No differences encountered)? # optional explicit message
+                \Z                            # end of output
+            },
         },
         {
             scenario        => 'add line to file',
@@ -124,7 +128,11 @@ subtest 'full file lifecycle' => sub {
         {
             scanario        => 'remove empty file',
             coderef         => sub { file $file, ensure => 'absent' },
-            expected_output => qr{\A\Z},
+            expected_output => qr{
+                \A                            # start of output
+                (No differences encountered)? # optional explicit message
+                \Z                            # end of output
+            },
         },
     );
 
