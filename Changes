@@ -5,6 +5,7 @@ Revision history for Rex-Hook-File-Diff
 
  [BUG FIXES]
  - Fix optional timestamps in headers
+ - Fix expected hunk headers on Solaris
 
  [DOCUMENTATION]
 

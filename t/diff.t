@@ -29,26 +29,32 @@ subtest 'quick file lifecycle' => sub {
             scenario        => 'create file with content',
             coderef         => sub { file $file, content => '1' },
             expected_output => qr{
-              \A                                    # start of output
-              \QDiff for: $file\E\n                 # leading message
-              \Q--- $null\E(\s+.*?)?\n              # header for original file
-              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
-              \Q@@ -0,0 +1 @@\E\n                   # hunk
-              \Q+1\E\n                              # added line
-              \Z                                    # end of output
+              \A                                   # start of output
+              \QDiff for: $file\E\n                # leading message
+              \Q--- $null\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+                (\Q@@ -0,0 +1 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,0 +1,1 @@\E)              # solaris hunk header
+              \n                                   # new line
+              \Q+1\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'remove file with content',
             coderef         => sub { file $file, ensure => 'absent' },
             expected_output => qr{
-              \A                            # start of output
-              \QDiff for: $file\E\n         # leading message
-              \Q--- $file\E(\s+.*?)?\n      # header for original file
-              \Q+++ $null\E(\s+.*?)?\n      # header for new file
-              \Q@@ -1 +0,0 @@\E\n           # hunk
-              \Q-1\E\n                      # added line
-              \Z                            # end of output
+              \A                       # start of output
+              \QDiff for: $file\E\n    # leading message
+              \Q--- $file\E(\s+.*?)?\n # header for original file
+              \Q+++ $null\E(\s+.*?)?\n # header for new file
+                (\Q@@ -1 +0,0 @@\E)    # hunk header
+                |                      # or
+                (\Q@@ -1,1 +1,0 @@\E)  # solaris hunk header
+              \n                       # new line
+              \Q-1\E\n                 # added line
+              \Z                       # end of output
             },
         },
     );
@@ -70,40 +76,49 @@ subtest 'full file lifecycle' => sub {
             scenario        => 'add line to file',
             coderef         => sub { file $file, content => '1' },
             expected_output => qr{
-              \A                                    # start of output
-              \QDiff for: $file\E\n                 # leading message
-              \Q--- $file\E(\s+.*?)?\n              # header for original file
-              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
-              \Q@@ -0,0 +1 @@\E\n                   # hunk
-              \Q+1\E\n                              # added line
-              \Z                                    # end of output
+              \A                                   # start of output
+              \QDiff for: $file\E\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+                (\Q@@ -0,0 +1 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,0 +1,1 @@\E)              # solaris hunk header
+              \n                                   # new line
+              \Q+1\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'modify line in file',
             coderef         => sub { file $file, content => '2' },
             expected_output => qr{
-              \A                                    # start of output
-              \QDiff for: $file\E\n                 # leading message
-              \Q--- $file\E(\s+.*?)?\n              # header for original file
-              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
-              \Q@@ -1 +1 @@\E\n                     # hunk
-              \Q-1\E\n                              # removed line
-              \Q+2\E\n                              # added line
-              \Z                                    # end of output
+              \A                                   # start of output
+              \QDiff for: $file\E\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+                (\Q@@ -1 +1 @@\E)                  # hunk header
+                |                                  # or
+                (\Q@@ -1,1 +1,1 @@\E)              # solaris hunk header
+              \n                                   # new line
+              \Q-1\E\n                             # removed line
+              \Q+2\E\n                             # added line
+              \Z                                   # end of output
             },
         },
         {
             scenario        => 'remove line from file',
             coderef         => sub { file $file, content => q() },
             expected_output => qr{
-              \A                                    # start of output
-              \QDiff for: $file\E\n                 # leading message
-              \Q--- $file\E(\s+.*?)?\n              # header for original file
-              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n  # header for new file
-              \Q@@ -1 +0,0 @@\E\n                   # hunk
-              \Q-2\E\n                              # removed line
-              \Z                                    # end of output
+              \A                                   # start of output
+              \QDiff for: $file\E\n                # leading message
+              \Q--- $file\E(\s+.*?)?\n             # header for original file
+              \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
+                (\Q@@ -1 +0,0 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,1 +1,0 @@\E)              # solaris hunk header
+              \n                                   # new line
+              \Q-2\E\n                             # removed line
+              \Z                                   # end of output
             },
         },
         {
@@ -129,7 +144,10 @@ subtest 'file command with source option' => sub {
               \QDiff for: \E$file\n                # leading message
               \Q--- $null\E(\s+.*?)?\n             # header for original file
               \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
-              \Q@@ -0,0 +1 @@\E\n                  # hunk
+                (\Q@@ -0,0 +1 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,0 +1,1 @@\E)              # solaris hunk header
+              \n                                   # new line
               \Q+1\E\n                             # added line
               \Z                                   # end of output
             },
@@ -142,7 +160,10 @@ subtest 'file command with source option' => sub {
               \QDiff for: \E$file\n                # leading message
               \Q--- $file\E(\s+.*?)?\n             # header for original file
               \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
-              \Q@@ -1 +1,2 @@\E\n                  # hunk
+                (\Q@@ -1 +1,2 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,1 +1,2 @@\E)              # solaris hunk header
+              \n                                   # new line
               \Q 1\E\n                             # unchanged line
               \Q+2\E\n                             # added line
               \Z                                   # end of output
@@ -171,7 +192,10 @@ subtest 'file command with source option' => sub {
               \QDiff for: \E$file\n                # leading message
               \Q--- $file\E(\s+.*?)?\n             # header for original file
               \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
-              \Q@@ -1,2 +1 @@\E\n                  # hunk
+                (\Q@@ -1,2 +1 @@\E)                # hunk header
+                |                                  # or
+                (\Q@@ -1,2 +1,1 @@\E)              # solaris hunk header
+              \n                                   # new line
               \Q 1\E\n                             # unchanged line
               \Q-3\E\n                             # removed line
               \Z                                   # end of output
@@ -185,7 +209,10 @@ subtest 'file command with source option' => sub {
               \QDiff for: \E$file\n    # leading message
               \Q--- $file\E(\s+.*?)?\n # header for original file
               \Q+++ $null\E(\s+.*?)?\n # header for new file
-              \Q@@ -1 +0,0 @@\E\n      # hunk
+                (\Q@@ -1 +0,0 @@\E)    # hunk header
+                |                      # or
+                (\Q@@ -1,1 +1,0 @@\E)  # solaris hunk header
+              \n                       # new line
               \Q-1\E\n                 # removed line
               \Z                       # end of output
             },
