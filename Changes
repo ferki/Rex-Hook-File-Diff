@@ -4,13 +4,16 @@ Revision history for Rex-Hook-File-Diff
  [API CHANGES]
 
  [BUG FIXES]
- - Fix optional timestamps in headers
- - Fix expected hunk headers on Solaris
- - Fix expected output for identical files on Solaris
 
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+
+v0.3.0.2 2021-07-31T19:28:19Z (TRIAL RELEASE)
+ [BUG FIXES]
+ - Fix optional timestamps in headers
+ - Fix expected hunk headers on Solaris
+ - Fix expected output for identical files on Solaris
 
 v0.3.0.1 2021-07-29T16:56:12Z (TRIAL RELEASE)
  [BUG FIXES]
