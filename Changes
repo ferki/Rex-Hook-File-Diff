@@ -4,12 +4,17 @@ Revision history for Rex-Hook-File-Diff
  [API CHANGES]
 
  [BUG FIXES]
+
+ [DOCUMENTATION]
+
+ [ENHANCEMENTS]
+
+v0.3.0.4 2021-08-02T17:45:44Z (TRIAL RELEASE)
+ [BUG FIXES]
  - Fix leading message in expected output on Solaris
 
  [DOCUMENTATION]
  - Fix license typos
-
- [ENHANCEMENTS]
 
 v0.3.0.3 2021-08-01T10:23:33Z (TRIAL RELEASE)
  [BUG FIXES]
