@@ -71,9 +71,12 @@ subtest 'full file lifecycle' => sub {
             scenario        => 'create empty file',
             coderef         => sub { file $file, ensure => 'present' },
             expected_output => qr{
-                \A                              # start of output
-                (No differences encountered\n)? # optional explicit message
-                \Z                              # end of output
+                \A                                   # start of output
+                (                                    # start of optional explicit message
+                    \QDiff for: $file\E\n            # leading message
+                    \QNo differences encountered\E\n # message about matching content on solaris
+                )?                                   # end of optional explicit message
+                \Z                                   # end of output
             },
         },
         {
@@ -129,9 +132,12 @@ subtest 'full file lifecycle' => sub {
             scanario        => 'remove empty file',
             coderef         => sub { file $file, ensure => 'absent' },
             expected_output => qr{
-                \A                              # start of output
-                (No differences encountered\n)? # optional explicit message
-                \Z                              # end of output
+                \A                                   # start of output
+                (                                    # start of optional explicit message
+                    \QDiff for: $file\E\n            # leading message
+                    \QNo differences encountered\E\n # message about matching content on solaris
+                )?                                   # end of optional explicit message
+                \Z                                   # end of output
             },
         },
     );
