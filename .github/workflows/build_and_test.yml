@@ -41,10 +41,13 @@ jobs:
         run: dzil build --no-tgz --in build
       - name: Install coverage dependencies
         run: cpanm Devel::Cover::Report::Coveralls
-      - name: Run tests
+      - name: Run extra tests
         run: |
           cd build
           prove --timer --lib --recurse --jobs $(nproc) --shuffle xt
+      - name: Run tests
+        run: |
+          cd build
           HARNESS_PERL_SWITCHES=-MDevel::Cover=+ignore,^t/ prove --timer --lib --recurse --jobs $(nproc) --shuffle t/
       - name: Report coverage info to Coveralls
         run: |
