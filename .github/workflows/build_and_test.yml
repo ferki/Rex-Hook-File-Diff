@@ -39,7 +39,7 @@ jobs:
         run: perlcritic lib t xt
       - name: Build dist
         run: dzil build --no-tgz --in build
-      - name: Install Devel::Cover::Report::Coveralls
+      - name: Install coverage dependencies
         run: cpanm Devel::Cover::Report::Coveralls
       - name: Run tests
         run: |
