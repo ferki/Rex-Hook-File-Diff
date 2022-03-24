@@ -1,0 +1,149 @@
+---
+name: CI
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Setup Perl
+        id: perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          install-modules-with: cpm
+          install-modules: Dist::Zilla
+      - name: Log perl version
+        run: perl -V
+      - name: Install author dependencies
+        run: dzil authordeps | cpm install --show-build-log-on-failure -
+      - name: Build dist
+        run: dzil build --no-tgz --in build
+      - name: Upload build results
+        uses: actions/upload-artifact@v3
+        with:
+          name: build_results
+          path: build
+
+  coverage:
+    if: ${{ github.event_name != 'schedule' }}
+
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Download build results
+        uses: actions/download-artifact@v3
+        with:
+          name: build_results
+          path: build
+      - name: Setup Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          install-modules-with: cpm
+          install-modules-args: --with-develop
+          install-modules: Devel::Cover::Report::Coveralls
+      - name: Log perl version
+        run: perl -V
+      - name: Run tests with coverage
+        env:
+          HARNESS_PERL_SWITCHES: -MDevel::Cover=+ignore,^local/
+        run: |
+          cd build
+          prove --timer --lib --recurse --jobs $(nproc) --shuffle t/
+      - name: Report coverage info to Coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd build
+          cover -report coveralls
+
+  extra-tests:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    env:
+      AUTHOR_TESTING: 1
+      EXTENDED_TESTING: 1
+      RELEASE_TESTING: 1
+
+    steps:
+      - name: Download build results
+        uses: actions/download-artifact@v3
+        with:
+          name: build_results
+      - name: Setup Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          install-modules-with: cpm
+          install-modules-args: --with-develop
+      - name: Log perl version
+        run: perl -V
+      - name: Run extra tests
+        run: prove --timer --lib --recurse --jobs $(nproc) --shuffle xt
+
+  tests:
+    needs: build
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+          - macos
+        perl:
+          - 5.14
+          - latest
+        distribution:
+          - default
+        threaded:
+          - false
+        include:
+          - os: ubuntu
+            perl: latest
+            distribution: default
+            threaded: true
+          - os: macos
+            perl: latest
+            distribution: default
+            threaded: true
+          - os: windows
+            perl: latest
+            distribution: strawberry
+
+    runs-on: ${{ matrix.os }}-latest
+
+    steps:
+      - name: Download build results
+        uses: actions/download-artifact@v3
+        with:
+          name: build_results
+      - name: Setup Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+          distribution: ${{ matrix.distribution }}
+          multi-thread: ${{ matrix.threaded }}
+          install-modules-with: cpm
+      - name: Log perl version
+        run: perl -V
+      - name: Get number of processors
+        id: cores
+        uses: SimenB/github-actions-cpu-cores@v1
+      - name: Run tests
+        run: prove --timer --lib --recurse --jobs ${{ steps.cores.outputs.count }} --shuffle t
