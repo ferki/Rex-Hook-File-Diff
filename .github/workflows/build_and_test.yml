@@ -128,6 +128,7 @@ jobs:
           - os: windows
             perl: latest
             distribution: strawberry
+            threaded: true
 
     runs-on: ${{ matrix.os }}-latest
 
