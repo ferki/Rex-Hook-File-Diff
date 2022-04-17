@@ -31,7 +31,7 @@ jobs:
           key: cache-build-deps-${{ steps.perl.outputs.perl-hash }}-${{ env.BUILD_TIMESTAMP }}
           restore-keys: cache-build-deps-${{ steps.perl.outputs.perl-hash }}-
       - name: Install Dist::Zilla
-        run: cpm install Dist::Zilla
+        run: cpm install --show-build-log-on-failure Dist::Zilla
       - name: Install author dependencies
         run: dzil authordeps | cpm install --show-build-log-on-failure -
       - name: Build dist
