@@ -22,9 +22,16 @@ jobs:
       - name: Setup Perl
         id: perl
         uses: shogo82148/actions-setup-perl@v1
+      - name: Get build timestamp
+        run: echo BUILD_TIMESTAMP="$(date +%FT%T)" >> $GITHUB_ENV
+      - name: Cache build dependencies
+        uses: actions/cache@v3
         with:
-          install-modules-with: cpm
-          install-modules: Dist::Zilla
+          path: local
+          key: cache-build-deps-${{ steps.perl.outputs.perl-hash }}-${{ env.BUILD_TIMESTAMP }}
+          restore-keys: cache-build-deps-${{ steps.perl.outputs.perl-hash }}-
+      - name: Install Dist::Zilla
+        run: cpm install Dist::Zilla
       - name: Install author dependencies
         run: dzil authordeps | cpm install --show-build-log-on-failure -
       - name: Build dist
