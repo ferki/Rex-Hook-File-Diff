@@ -29,11 +29,13 @@ jobs:
         run: dzil authordeps | cpm install --show-build-log-on-failure -
       - name: Build dist
         run: dzil build --no-tgz --in build
+      - name: Create build tarball
+        run: tar cvf build.tar -C build .
       - name: Upload build results
         uses: actions/upload-artifact@v3
         with:
-          name: build_results
-          path: build
+          name: build.tar
+          path: build.tar
 
   coverage:
     if: ${{ github.event_name != 'schedule' }}
@@ -48,8 +50,9 @@ jobs:
       - name: Download build results
         uses: actions/download-artifact@v3
         with:
-          name: build_results
-          path: build
+          name: build.tar
+      - name: Extract tarball
+        run: tar xvf build.tar
       - name: Setup Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
@@ -59,15 +62,11 @@ jobs:
       - name: Run tests with coverage
         env:
           HARNESS_PERL_SWITCHES: -MDevel::Cover=+ignore,^local/
-        run: |
-          cd build
-          prove --timer --lib --recurse --jobs $(nproc) --shuffle t/
+        run: prove --timer --lib --recurse --jobs $(nproc) --shuffle t/
       - name: Report coverage info to Coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd build
-          cover -report coveralls
+        run: cover -report coveralls
 
   extra-tests:
     needs: build
@@ -83,7 +82,9 @@ jobs:
       - name: Download build results
         uses: actions/download-artifact@v3
         with:
-          name: build_results
+          name: build.tar
+      - name: Extract tarball
+        run: tar xvf build.tar
       - name: Setup Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
@@ -127,7 +128,9 @@ jobs:
       - name: Download build results
         uses: actions/download-artifact@v3
         with:
-          name: build_results
+          name: build.tar
+      - name: Extract tarball
+        run: tar xvf build.tar
       - name: Setup Perl
         uses: shogo82148/actions-setup-perl@v1
         with:
