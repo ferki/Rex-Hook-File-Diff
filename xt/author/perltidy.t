@@ -14,7 +14,7 @@ if ( !$ENV{AUTHOR_TESTING} ) {
     plan skip_all => 'these tests are for testing by the author';
 }
 
-my @files_to_exclude = qw(Makefile.PL .build blib local);
+my @files_to_exclude = qw(cpanfile Makefile.PL .build blib local);
 my $xt_dir           = File::Spec->join('xt');
 
 find(
