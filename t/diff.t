@@ -148,6 +148,9 @@ subtest 'full file lifecycle' => sub {
 subtest 'file command with source option' => sub {
     my $file = File::Temp->new( TEMPLATE => "$PROGRAM_NAME.XXXX" )->filename();
     my $rex_tmp_filename = Rex::Commands::File::get_tmp_file_name($file);
+    my $red = qr/\e\[1;31m/;
+    my $green = qr/\e\[1;32m/;
+    my $reset_color = qr/\e\[0m/;
 
     my @tests = (
         {
@@ -193,8 +196,8 @@ subtest 'file command with source option' => sub {
               \Q+++ $rex_tmp_filename\E(\s+.*?)?\n # header for new file
               \Q@@ -1,2 +1,2 @@\E\n                # hunk
               \Q 1\E\n                             # unchanged line
-              \Q-2\E\n                             # removed line
-              \Q+3\E\n                             # added line
+              $red\Q-2\E$reset_color\n             # removed line
+              $green\Q+3\E$reset_color\n           # added line
               \Z                                   # end of output
             },
         },

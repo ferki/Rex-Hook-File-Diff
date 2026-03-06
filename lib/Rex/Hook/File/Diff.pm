@@ -6,6 +6,7 @@ use 5.012;
 use warnings;
 
 use File::Basename;
+use IPC::Run;
 use Rex 1.013004 -base;
 use Rex::Helper::Run;
 use Rex::Hook;
@@ -39,6 +40,13 @@ sub show_diff {
     }
 
     if ( length $diff > 0 ) {
+        my @highlighter = qw( delta --color-only --diff-so-fancy );
+        my $highlighted;
+
+        IPC::Run::run \@highlighter, \$diff, \$highlighted;
+
+        $diff = $highlighted;
+
         Rex::Commands::say("Diff for: $original_file\n$diff");
     }
 
